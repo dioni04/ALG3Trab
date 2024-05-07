@@ -13,9 +13,17 @@ typedef struct TrieNode {
     struct TrieNode* prox[MAX];
 } node;
 
+//Arquivo
+node* processaArq(char *path, node* raiz);
+
+
+//Trie Tree
 node* criaNode();
 void freeArv(node* arv);
 node* insere(node* raiz, char* string);
 int busca(node* raiz, char* string);
+
+//Outras funcoes
+int buscaPos(char c);
 
 #endif
