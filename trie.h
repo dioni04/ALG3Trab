@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MAX 27
+#define MAX 39
 #define TAM_LINHA 1024
 #define indC(c) (c - 'a')
 
