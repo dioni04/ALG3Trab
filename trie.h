@@ -6,6 +6,7 @@
 #include <string.h>
 
 #define MAX 27
+#define TAM_LINHA 1024
 #define indC(c) (c - 'a')
 
 typedef struct TrieNode {
