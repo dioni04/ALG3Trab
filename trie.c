@@ -1,5 +1,22 @@
 #include "trie.h"
 
+node* processaArq(char *path, node* raiz) {
+
+    FILE* arq;
+    char linha[TAM_LINHA];
+
+    //Se nao conseguir abrir o arquivo, retorna 0
+    if ((arq = fopen(path, "r")) == NULL)
+        return NULL;
+
+    while (fgets(linha, TAM_LINHA, arq) != NULL)
+        raiz = insere(raiz,linha);
+
+    fclose(arq);
+    return raiz;
+
+}
+
 node* criaNode() {
     
     node* novo = (node*) calloc (1, sizeof(node));
