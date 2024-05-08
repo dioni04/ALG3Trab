@@ -101,23 +101,23 @@ void penis(node* arv, char *string) {
 
 void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {  
     
-	if ((arv == NULL) || (i >= strlen(string))) {
-		printf("%s\n", resultado);
-		return;
-	}
+    if ((arv == NULL) || (i >= strlen(string))) {
+        printf("%s\n", resultado);
+            return;
+    }
 
     int pos = buscaPos(string[i]);
-	if (string[i] == '.') {
-		for (int j = 0; j < MAX; j++)
-			if (arv->prox[j] != NULL) {
-				resultado[i] = j + 'a';
-				buscaPadrao(arv->prox[j],string,resultado,i+1);
-			}
-	}
-	else if ((pos != -1) && (arv->prox[pos] != NULL)) {
-		resultado[i] = pos + 'a';
+    if (string[i] == '.') {
+        for (int j = 0; j < MAX; j++)
+            if (arv->prox[j] != NULL) {
+                resultado[i] = j + 'a';
+		buscaPadrao(arv->prox[j],string,resultado,i+1);
+	    }
+    }
+    else if ((pos != -1) && (arv->prox[pos] != NULL)) {
+	resultado[i] = pos + 'a';
         buscaPadrao(arv->prox[pos],string,resultado,i+1);
-	}
+    }
     else if (pos == -1) {
         printf("Erro: Caracter invalido\n");
         return;
