@@ -33,8 +33,12 @@ node* insere(node* raiz, char* string) {
 
     for (int i = 0; string[i] != '\0'; i++) {  //Loop eh executado ate o fim da palavra
         int pos = buscaPos(string[i]);  //Calcula a posicao da letra no vetor
-        if (aux->prox[pos] == NULL)
+        if ((pos != -1) && (aux->prox[pos] == NULL))
             aux->prox[pos] = criaNode();
+        else if (pos == -1) {
+            printf("Erro: Caracter invalido\n");
+            return NULL;
+        }
         aux = aux->prox[pos];  //Avanca p/ o prox nivel
     }
 
@@ -49,7 +53,7 @@ int busca(node* raiz, char* string) {
 
     for (int i = 0; string[i] != '\0'; i++) {
         int pos = buscaPos(string[i]);
-        if (aux->prox[pos] == NULL) //Se a posicao esta vazia retorna 0
+        if ((pos == -1) || (aux->prox[pos] == NULL)) //Se a posicao esta vazia retorna 0
             return 0;
         aux = aux->prox[pos];
     }
@@ -71,7 +75,7 @@ void freeArv(node* arv) {
     free(arv);
 }
 
-//Retorna a posicao correta do char no vetor
+//Retorna a posicao correta do char no vetor, caso nao encontre, retorna -1
 int buscaPos(char c) {
 
     if (c == ' ')
@@ -80,7 +84,43 @@ int buscaPos(char c) {
         return 36;
     else if ( c >= '0' && c <= '9' )
         return 26 + c;
-    else
+    else if (c >= 97 && c <= 122)
         return indC(c);
+    else
+        return -1;
+
+}
+
+void penis(node* arv, char *string) {
+
+    char res[TAM_LINA];
+    memset(res, '\0', sizeof(res));
+    buscaPadrao(arv,string,res,0);
+    
+}
+
+void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {  
+    
+	if ((arv == NULL) || (i >= strlen(string))) {
+		printf("%s\n", resultado);
+		return;
+	}
+
+    int pos = buscaPos(string[i]);
+	if (string[i] == '.') {
+		for (int j = 0; j < MAX; j++)
+			if (arv->prox[j] != NULL) {
+				resultado[i] = j + 'a';
+				buscaPadrao(arv->prox[j],string,resultado,i+1);
+			}
+	}
+	else if ((pos != -1) && (arv->prox[pos] != NULL)) {
+		resultado[i] = pos + 'a';
+        buscaPadrao(arv->prox[pos],string,resultado,i+1);
+	}
+    else if (pos == -1) {
+        printf("Erro: Caracter invalido\n");
+        return;
+    }
 
 }
