@@ -25,5 +25,7 @@ int busca(node* raiz, char* string);
 
 //Outras funcoes
 int buscaPos(char c);
+void penis(node* arv, char *string);
+void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i);
 
 #endif
