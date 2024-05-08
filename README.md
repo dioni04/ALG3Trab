@@ -8,3 +8,4 @@ Trabalho Trie Tree
   - Trie.h e trie.c ja tem funcoes de insercao, busca e free da arvore
   - A funcao processaArq copia os titulos dos filmes para a arvore
   - A funcao buscaPos devolve a posicao do char no vetor
+  - A funcao buscaPadrao trata o caso do curinga ser .
