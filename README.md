@@ -9,3 +9,4 @@ Trabalho Trie Tree
   - A funcao processaArq copia os titulos dos filmes para a arvore
   - A funcao buscaPos devolve a posicao do char no vetor
   - A funcao buscaPadrao trata o caso do curinga ser .
+  - A main eh qualFilme.c e eh bem simples por enquanto, so uma ideia de como pode ser
