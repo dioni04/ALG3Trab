@@ -11,14 +11,14 @@ int main(int argc, char **argv) {
     }
 
     //Passa os dados do arquivo de entrada p/ a arvore
-    if ((arv = processaArq(argv[1])) == NULL) {
+    if ((arv = processaArq(argv[1],arv)) == NULL) {
         printf("Erro no processamento do arquivo de entrada\n");
         return 1;
     }
 
     FILE* consulta;
     //Abre o arquivo de consulta
-    if (consulta = fopen(argv[2],"r") == NULL) {
+    if ((consulta = fopen(argv[2],"r")) == NULL) {
         printf("Erro ao abrir o arquivo de consulta\n");
         return 1;
     }
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
         op = strsep(&buffer," ");           //Op eh a operacao a ser realizada, no caso, p, l ou c
         padrao = strsep(&buffer, " ");      //Padrao eh qualquer outra palavra que esteja nessa linha
         while (padrao != NULL) {
-            penis(arv,padrao);              //Adicionar o op como parametro de penis, pq entao, baseado no op, penis chama as funcoes de busca
+            penis(arv,padrao,op);             
             padrao = strsep(&buffer, " ");
         }
     }
