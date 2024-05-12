@@ -133,7 +133,7 @@ void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {
 void buscaPrefixo(node* arv, char *prefix, char *resultado, unsigned long i) {
 
 	if ((arv == NULL) || (i >= strlen(prefix))) {
-		printf("%s\n", resultado);
+    	printf("%s\n", resultado);
 		return;
 	}
 
