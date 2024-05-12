@@ -11,3 +11,4 @@ Trabalho Trie Tree
   - A funcao buscaPadrao trata o caso do curinga ser .
   - A main eh qualFilme.c e eh bem simples por enquanto, so uma ideia de como pode ser
   - A funcao buscaPrefixo busca um titulo baseado num prefixo
+  - Basicamente so falta adaptar a funcao buscaPadrao pra funcionar para "*", o resto ja ta td feito e funcionando
