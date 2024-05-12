@@ -13,9 +13,13 @@ typedef struct TrieNode {
     struct TrieNode* prox[MAX];
 } node;
 
+typedef struct MaisLongo {
+    char *word;
+    unsigned long tam;
+} maisLongo;
+
 //Arquivo
 node* processaArq(char *path, node* raiz);
-
 
 //Trie Tree
 node* criaNode();
