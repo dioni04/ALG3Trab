@@ -30,11 +30,8 @@ int main(int argc, char **argv) {
         buffer = linha;
         buffer[strcspn(buffer, "\n")] = 0;  //Substitui o \n por \0 no fim da linha
         op = strsep(&buffer," ");           //Op eh a operacao a ser realizada, no caso, p, l ou c
-        padrao = strsep(&buffer, " ");      //Padrao eh qualquer outra palavra que esteja nessa linha
-        while (padrao != NULL) {
-            penis(arv,padrao,op);             
-            padrao = strsep(&buffer, " ");
-        }
+        padrao = strsep(&buffer, "\n");     
+        penis(arv,padrao,op);             
     }
 
     fclose(consulta);
