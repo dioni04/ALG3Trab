@@ -24,9 +24,10 @@ node* insere(node* raiz, char* string);
 int busca(node* raiz, char* string);
 
 //Funcoes principais
-void penis(node* arv, char *string);
-void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i);
-void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i);
+void penis(node* arv, char *string, FILE* saida);
+void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* saida);
+void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i, FILE* saida);
+void buscaMaisLongo(node* arv, char *titulo, char *res, maisLongo *nome, unsigned long i);
 
 //Outras funcoes
 int buscaPos(char c);
