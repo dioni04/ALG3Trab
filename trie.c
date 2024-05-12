@@ -155,10 +155,10 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i) {
 
 }
 
-//Busca um titulo baseado num prefixo, na teoria, pq eu n testei 
+//Busca um titulo baseado num prefixo
 void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i) {
 
-	if ((arv == NULL) || (i >= strlen(prefix))) {
+	if ((arv == NULL) || (arv->prox[MAX-1] != NULL)) {
 		printf("%s\n", res);
 		return;
 	}
@@ -173,7 +173,7 @@ void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i) {
     else
         for (int j = 0; j < MAX; j++)
             if (arv->prox[j] != NULL) {
-                res[i] = buscaPos(j);
+                res[i] = buscaChar(j);
                 buscaPrefixo(arv->prox[j],prefix,res,i+1);
             }
 }
