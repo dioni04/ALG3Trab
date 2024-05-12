@@ -93,34 +93,58 @@ int buscaPos(char c) {
 
 }
 
-//Nessa funcao deve ser adicionado o parametro op, e baseado nele, essa funcao chama as funcoes adequadas de busca
-void penis(node* arv, char *string) {
+//Retorna um caracter baseado na posicao do vetor, oposto da funcao buscaPos
+char buscaChar(int pos) {
 
-    char res[TAM_LINA];
+    if (pos == 37)
+        return ' ';
+    else if (pos == 36)
+        return '?';
+    else if (pos <= 25)
+        return pos + 'a';
+    else if (pos >= 26 && pos <= 35)
+        return pos - 26;
+    else
+        return -1;
+        
+}
+
+//Essa funcao chama as funcoes adequadas baseado no op
+void penis(node* arv, char *string, char *op) {
+
+    char res[TAM_LINHA]; //String para armazenar o resultado
     memset(res, '\0', sizeof(res)); //Preenche o vetor com \0 pra n dar merda
-    buscaPadrao(arv,string,res,0);
+    
+    if (strcmp(op,"p") == 0)
+        buscaPrefixo(arv,string,res,0);
+    else if (strcmp(op,"l") == 0)
+        return;  //Placeholder para a funcao buscaMaisLongo
+    else if (strcmp(op,"c") == 0)
+        buscaPadrao(arv,string,res,0);
+    else
+        printf("Operacao invalida\n");
     
 }
 
 //No momento ela so busca com o wildcard '.', mas dps eh so adpatar pra funcionar pra '*' tbm
-void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {  
+void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i) {  
     
-    if ((arv == NULL) || (i >= strlen(string))) {
-        printf("%s\n", resultado);
+    if ((arv == NULL) || (i >= strlen(padrao))) {
+        printf("%s\n", res);
         return;
     }
 
-    int pos = buscaPos(string[i]);
-    if (string[i] == '.') {
+    int pos = buscaPos(padrao[i]);
+    if (padrao[i] == '.') {
         for (int j = 0; j < MAX; j++)
             if (arv->prox[j] != NULL) {
-                resultado[i] = j + 'a';
-		buscaPadrao(arv->prox[j],string,resultado,i+1);
+                res[i] = buscaChar(j);
+		buscaPadrao(arv->prox[j],padrao,res,i+1);
 	    }
     }
     else if ((pos != -1) && (arv->prox[pos] != NULL)) {
-	resultado[i] = pos + 'a';
-        buscaPadrao(arv->prox[pos],string,resultado,i+1);
+    	res[i] = buscaChar(pos);
+        buscaPadrao(arv->prox[pos],padrao,res,i+1);
     }
     else if (pos == -1) {
         printf("Erro: Caracter invalido\n");
@@ -129,25 +153,25 @@ void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {
 
 }
 
-//Busca um titulo baseado num prefixo, na teoria, pq eu n testei
-void buscaPrefixo(node* arv, char *prefix, char *resultado, unsigned long i) {
+//Busca um titulo baseado num prefixo, na teoria, pq eu n testei 
+void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i) {
 
 	if ((arv == NULL) || (i >= strlen(prefix))) {
-    	printf("%s\n", resultado);
+		printf("%s\n", res);
 		return;
 	}
 
     if (i < strlen(prefix)) {
         int pos = buscaPos(prefix[i]);
         if ((pos != -1) && (arv->prox[pos] != NULL)) {
-            resultado[i] = pos + 'a';
+            res[i] = buscaChar(pos);
             buscaPrefixo(arv->prox[pos],prefix,res,i+1);
         }
     }
     else
         for (int j = 0; j < MAX; j++)
             if (arv->prox[j] != NULL) {
-                resultado[i] = j + 'a';
+                res[i] = buscaPos(j);
                 buscaPrefixo(arv->prox[j],prefix,res,i+1);
             }
 }
