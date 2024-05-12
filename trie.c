@@ -1,5 +1,6 @@
 #include "trie.h"
 
+//Abre o arquivo de dados, e copia suas informacoes p/ a arv
 node* processaArq(char *path, node* raiz) {
 
     FILE* arq;
@@ -17,6 +18,7 @@ node* processaArq(char *path, node* raiz) {
 
 }
 
+//Cria um no com MAX filhos NULL
 node* criaNode() {
     
     node* novo = (node*) calloc (1, sizeof(node));
@@ -42,7 +44,7 @@ node* insere(node* raiz, char* string) {
         aux = aux->prox[pos];  //Avanca p/ o prox nivel
     }
 
-    aux->prox[26] = criaNode();  //O ponteiro que representa '\0' sera diferente de nulo ao fim de cada palavra
+    aux->prox[MAX-1] = criaNode();  //O ponteiro que representa '\0' sera diferente de nulo ao fim de cada palavra
 
     return raiz;
 }
@@ -91,19 +93,21 @@ int buscaPos(char c) {
 
 }
 
+//Nessa funcao deve ser adicionado o parametro op, e baseado nele, essa funcao chama as funcoes adequadas de busca
 void penis(node* arv, char *string) {
 
     char res[TAM_LINA];
-    memset(res, '\0', sizeof(res));
+    memset(res, '\0', sizeof(res)); //Preenche o vetor com \0 pra n dar merda
     buscaPadrao(arv,string,res,0);
     
 }
 
+//No momento ela so busca com o wildcard '.', mas dps eh so adpatar pra funcionar pra '*' tbm
 void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {  
     
     if ((arv == NULL) || (i >= strlen(string))) {
         printf("%s\n", resultado);
-            return;
+        return;
     }
 
     int pos = buscaPos(string[i]);
@@ -123,4 +127,27 @@ void buscaPadrao(node* arv, char *string, char *resultado, unsigned long i) {
         return;
     }
 
+}
+
+//Busca um titulo baseado num prefixo, na teoria, pq eu n testei
+void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i) {
+
+	if ((arv == NULL) || (i >= strlen(prefix))) {
+		printf("%s\n", res);
+		return;
+	}
+
+    if (i < strlen(prefix)) {
+        int pos = buscaPos(prefix[i]);
+        if ((pos != -1) && (arv->prox[pos] != NULL)) {
+            res[i] = pos + 'a';
+            buscaPrefixo(arv->prox[pos],prefix,res,i+1);
+        }
+    }
+    else
+        for (int j = 0; j < MAX; j++)
+            if (arv->prox[j] != NULL) {
+                res[i] = j + 'a';
+                buscaPrefixo(arv->prox[j],prefix,res,i+1);
+            }
 }
