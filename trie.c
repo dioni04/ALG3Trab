@@ -10,8 +10,10 @@ node* processaArq(char *path, node* raiz) {
     if ((arq = fopen(path, "r")) == NULL)
         return NULL;
 
-    while (fgets(linha, TAM_LINHA, arq) != NULL)
+    while (fgets(linha, TAM_LINHA, arq) != NULL) {
+		linha[strcspn(linha, "\n")] = 0;
         raiz = insere(raiz,linha);
+	}
 
     fclose(arq);
     return raiz;
@@ -60,7 +62,7 @@ int busca(node* raiz, char* string) {
         aux = aux->prox[pos];
     }
 
-    if ((aux != NULL) && (aux->prox[26] != NULL))
+    if ((aux != NULL) && (aux->prox[MAX-1] != NULL))
         return 1;
     return 0;
 }
