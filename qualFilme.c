@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
         op = strsep(&buffer," ");           //Op eh a operacao a ser realizada, no caso, p, l ou c
         padrao = strsep(&buffer, " ");      //Padrao eh qualquer outra palavra que esteja nessa linha
         while (padrao != NULL) {
-            penis(arv,padrao);              //Adicionar o op como parametro de penis, pq ai penis chama buscaPadrao e buscaPadrao chama a funcao pra realizar a operacao
+            penis(arv,padrao);              //Adicionar o op como parametro de penis, pq entao, baseado no op, penis chama as funcoes de busca
             padrao = strsep(&buffer, " ");
         }
     }
