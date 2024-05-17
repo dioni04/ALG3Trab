@@ -46,7 +46,7 @@ node* insere(node* raiz, char* string) {
         aux = aux->prox[pos];  //Avanca p/ o prox nivel
     }
 
-    aux->prox[MAX-1] = criaNode();  //O ponteiro que representa '\0' sera diferente de nulo ao fim de cada palavra
+    aux->prox[0] = criaNode();  //O ponteiro que representa '\0' sera diferente de nulo ao fim de cada palavra
 
     return raiz;
 }
@@ -62,7 +62,7 @@ int busca(node* raiz, char* string) {
         aux = aux->prox[pos];
     }
 
-    if ((aux != NULL) && (aux->prox[MAX-1] != NULL))
+    if ((aux != NULL) && (aux->prox[0] != NULL))
         return 1;
     return 0;
 }
@@ -153,7 +153,7 @@ void penis(node* arv, char *string, char *op, FILE* saida) {
 void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* saida) {  
     
     if ((arv == NULL) || (i >= strlen(padrao))) {
-        if (arv->prox[MAX-1] != NULL) {
+        if (arv->prox[0] != NULL) {
             fputs(res,saida);
             fputs("\n",saida);
         }
@@ -182,7 +182,7 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* said
 //Busca um titulo baseado num prefixo
 void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i, FILE* saida) {
 
-	if ((arv == NULL) || (arv->prox[MAX-1] != NULL)) {
+	if ((arv == NULL) || (arv->prox[0] != NULL)) {
 		fputs(res,saida);
         fputs("\n",saida);
 		return;
@@ -206,7 +206,7 @@ void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i, FILE* sai
 //Busca o maior prefixo da string fornecida
 void buscaMaisLongo(node* arv, char *titulo, char *res, maisLongo *nome, unsigned long i) {
 
-	if ((arv == NULL) || (arv->prox[MAX-1] != NULL)) {
+	if ((arv == NULL) || (arv->prox[0] != NULL)) {
         if ((strlen(res) > nome->tam) && (strlen(res) < strlen(titulo))){
             nome->tam = strlen(res);
             if (nome->word != NULL)
