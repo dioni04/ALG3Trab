@@ -1,23 +1,5 @@
 #include "trie.h"
 
-//Define indice do caracter no Nodo
-int indC(char c){
-    if(c == 0)
-        return 0;
-
-    if(c == ' ')
-        return 1;
-
-    if(c >= '0' && c <= '9')
-        return 2 + (c - '0');
-
-    c = tolower(c); //Transforma em caracter minusculo
-    if(c >= 'a' && c <= 'z')
-        return 12 + (c - 'a');
-
-    return MAX-1; //Caracter desconhecido ?
-}
-
 //Abre o arquivo de dados, e copia suas informacoes p/ a arv
 node* processaArq(char *path, node* raiz) {
 
@@ -97,35 +79,49 @@ void freeArv(node* arv) {
     free(arv);
 }
 
-//Retorna a posicao correta do char no vetor, caso nao encontre, retorna -1
+//Retorna a posicao correta do char no vetor
 int buscaPos(char c) {
 
-    if (c == ' ')
-        return 37;
-    else if (c == '?')
-        return 36;
-    else if ( c >= '0' && c <= '9' )
-        return 26 + c;
-    else if (c >= 97 && c <= 122)
-        return indC(c);
-    else
-        return -1;
+    if(c == 0)
+        return 0;
+
+    if(c == ' ')
+        return 1;
+
+    if(c >= '0' && c <= '9')
+        return 2 + (c - '0');
+
+    c = tolower(c); //Transforma em caracter minusculo
+    if(c >= 'a' && c <= 'z')
+        return 12 + (c - 'a');
+
+    return MAX-1; //Caracter desconhecido ?
 
 }
 
 //Retorna um caracter baseado na posicao do vetor, oposto da funcao buscaPos
 char buscaChar(int pos) {
 
-    if (pos == 37)
-        return ' ';
-    else if (pos == 36)
+    if (pos == 38)
         return '?';
-    else if (pos <= 25)
-        return pos + 'a';
-    else if (pos >= 26 && pos <= 35)
-        return pos - 26;
-    else
-        return -1;
+    // Letras lowercase
+    if(pos >= 12){
+        pos -= 12;
+        return 'a' + pos;
+    }
+    // Numeros 0-9
+    if(pos >= 2){
+        pos -= 2;
+        return '0' + pos;
+    }
+
+    if(pos == 1)
+        return ' ';
+
+    if(pos == 0)
+        return '\0';
+
+    return '?'; //Desconhecido
         
 }
 
