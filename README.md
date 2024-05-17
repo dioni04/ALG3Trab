@@ -5,7 +5,7 @@ Trabalho Trie Tree
   - Coringa . FEITO
   - Coringa *
   - Mudar ordem do vetor da Trie (Carmem mandou email com nova ordem) FEITO
-  - Limpar penis(qual o plural de penis?) espalhados no codigo
+  - Limpar penis(qual o plural de penis?) espalhados no codigo FEITO :(
 
 #  NOTAS
   - Trie.h e trie.c ja tem funcoes de insercao, busca e free da arvore
