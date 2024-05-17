@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #define MAX 39
 #define TAM_LINHA 1024
-#define indC(c) (c - 'a')
+//#define indC(c) (c - 'a')
 
 typedef struct TrieNode {
     struct TrieNode* prox[MAX];
@@ -26,6 +27,8 @@ node* criaNode();
 void freeArv(node* arv);
 node* insere(node* raiz, char* string);
 int busca(node* raiz, char* string);
+
+int indC(char c);
 
 //Funcoes principais
 void penis(node* arv, char *string, FILE* saida);
