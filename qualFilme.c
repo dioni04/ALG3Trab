@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
         buffer[strcspn(buffer, "\n")] = 0;  //Substitui o \n por \0 no fim da linha
         op = strsep(&buffer," ");           //Op eh a operacao a ser realizada, no caso, p, l ou c
         padrao = strsep(&buffer, "\n");     
-        penis(arv,padrao,op);             
+        busca(arv,padrao,op);             
     }
 
     fclose(consulta);
