@@ -51,22 +51,6 @@ node* insere(node* raiz, char* string) {
     return raiz;
 }
 
-int busca(node* raiz, char* string) {
-    
-    node* aux = raiz;
-
-    for (int i = 0; string[i] != '\0'; i++) {
-        int pos = buscaPos(string[i]);
-        if ((pos == -1) || (aux->prox[pos] == NULL)) //Se a posicao esta vazia retorna 0
-            return 0;
-        aux = aux->prox[pos];
-    }
-
-    if ((aux != NULL) && (aux->prox[0] != NULL))
-        return 1;
-    return 0;
-}
-
 void freeArv(node* arv) {
     
     if (arv == NULL)
@@ -126,7 +110,7 @@ char buscaChar(int pos) {
 }
 
 //Essa funcao chama as funcoes adequadas baseado no op
-void penis(node* arv, char *string, char *op, FILE* saida) {
+void busca(node* arv, char *string, char *op, FILE* saida) {
 
     char res[TAM_LINHA]; //String para armazenar o resultado
     memset(res, '\0', sizeof(res)); //Preenche o vetor com \0 pra n dar merda
