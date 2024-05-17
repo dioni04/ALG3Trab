@@ -2,9 +2,9 @@
 Trabalho Trie Tree 
 
 #  ToDo:
-  - Coringa . X
+  - Coringa . FEITO
   - Coringa *
-  - Mudar ordem do vetor da Trie (Carmem mandou email com nova ordem)
+  - Mudar ordem do vetor da Trie (Carmem mandou email com nova ordem) FEITO
   - Limpar penis(qual o plural de penis?) espalhados no codigo
 
 #  NOTAS
