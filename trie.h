@@ -28,8 +28,6 @@ void freeArv(node* arv);
 node* insere(node* raiz, char* string);
 int busca(node* raiz, char* string);
 
-int indC(char c);
-
 //Funcoes principais
 void penis(node* arv, char *string, FILE* saida);
 void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* saida);
