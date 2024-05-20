@@ -1,4 +1,5 @@
 #include "trie.h"
+#include <stdio.h>
 
 node* insere(node* raiz, char* string) {
 
@@ -139,12 +140,14 @@ void buscaPadraoAux(node* arv, char* padrao, char* res, int i, int proxPos, FILE
     for(int j = 0; j < MAX; j++){ //Percorre vetor e vai em todas sub arvores
         if (arv->prox[j] != NULL) {
             res[i] = buscaChar(j);
-            buscaPadraoAux(arv, padrao,res, i+1, proxPos, saida);
+            buscaPadraoAux(arv->prox[j], padrao,res, i+1, proxPos, saida);
         }
     }
 
-    if(arv->prox[proxPos] != NULL) //Se for nao NULL o prox volta para funcao que chamou
-        buscaPadrao(arv, padrao, res, i, saida);
+    if(arv->prox[proxPos] != NULL){ //Se for nao NULL o prox volta para funcao que chamou
+        res[i] = buscaChar(proxPos);
+        buscaPadrao(arv->prox[proxPos], padrao, res, i+1, saida);
+    }
     return;
 }
 
@@ -169,6 +172,7 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* said
     }
     else if (padrao[i] == '*'){
         int proxPos = buscaPos(padrao[i+1]);
+
         buscaPadraoAux(arv, padrao,res, i, proxPos, saida);
         return;
     }
