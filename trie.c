@@ -1,5 +1,4 @@
 #include "trie.h"
-#include <stdio.h>
 
 node* insere(node* raiz, char* string) {
 
