@@ -1,25 +1,5 @@
 #include "trie.h"
 
-node* insere(node* raiz, char* string) {
-
-    node* aux = raiz;
-
-    for (int i = 0; string[i] != '\0'; i++) {  //Loop eh executado ate o fim da palavra
-        int pos = buscaPos(string[i]);  //Calcula a posicao da letra no vetor
-        if ((pos != -1) && (aux->prox[pos] == NULL))
-            aux->prox[pos] = criaNode();
-        else if (pos == -1) {
-            printf("Erro: Caracter invalido\n");
-            return NULL;
-        }
-        aux = aux->prox[pos];  //Avanca p/ o prox nivel
-    }
-
-    aux->prox[0] = criaNode();  //O ponteiro que representa '\0' sera diferente de nulo ao fim de cada palavra
-
-    return raiz;
-}
-
 //Abre o arquivo de dados, e copia suas informacoes p/ a arv
 node* processaArq(char *path, node* raiz) {
 
@@ -62,6 +42,33 @@ void freeArv(node* arv) {
             freeArv(arv->prox[i]);
     
     free(arv);
+}
+
+node* insere(node* raiz, char* string) {
+
+    node* aux = raiz;
+
+    for (int i = 0; string[i] != '\0'; i++) {  //Loop eh executado ate o fim da palavra
+        int pos = buscaPos(string[i]);  //Calcula a posicao da letra no vetor
+        if ((pos != -1) && (aux->prox[pos] == NULL))
+            aux->prox[pos] = criaNode();
+        else if (pos == -1) {
+            printf("Erro: Caracter invalido\n");
+            return NULL;
+        }
+        aux = aux->prox[pos];  //Avanca p/ o prox nivel
+    }
+
+    aux->prox[0] = criaNode();  //O ponteiro que representa '\0' sera diferente de nulo ao fim de cada palavra
+
+    return raiz;
+}
+
+//Limpa resto da string
+void cleanStr(char* s, int i){
+    for(i = i; i < MAX; i++)
+        s[i] = 0;
+    return;
 }
 
 //Retorna a posicao correta do char no vetor
@@ -139,13 +146,13 @@ void buscaPadraoAux(node* arv, char* padrao, char* res, int i, int proxPos, FILE
     for(int j = 0; j < MAX; j++){ //Percorre vetor e vai em todas sub arvores
         if (arv->prox[j] != NULL) {
             res[i] = buscaChar(j);
-            buscaPadraoAux(arv->prox[j], padrao,res, i+1, proxPos, saida);
+            buscaPadraoAux(arv->prox[j], padrao, res, i+1, proxPos, saida);
         }
     }
 
     if(arv->prox[proxPos] != NULL){ //Se for nao NULL o prox volta para funcao que chamou
         res[i] = buscaChar(proxPos);
-        buscaPadrao(arv->prox[proxPos], padrao, res, i+1, saida);
+        buscaPadrao(arv, padrao, res, i+1, saida);
     }
     return;
 }
@@ -170,9 +177,14 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* said
             }
     }
     else if (padrao[i] == '*'){
-        int proxPos = buscaPos(padrao[i+1]);
+        int proxPos;
 
-        buscaPadraoAux(arv, padrao,res, i, proxPos, saida);
+        if(padrao[i+1] != '.')
+            proxPos = buscaPos(padrao[i+1]);
+        else
+            proxPos = 0; //O . nao faz diferenca
+
+        buscaPadraoAux(arv, padrao, res, i, proxPos, saida);
         return;
     }
     else if ((pos != -1) && (arv->prox[pos] != NULL)) {
@@ -183,16 +195,16 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* said
         printf("Erro: Caracter invalido\n");
         return;
     }
-
+    return;
 }
 
 //Busca um titulo baseado num prefixo
 void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i, FILE* saida) {
 
 	if ((arv == NULL) || (arv->prox[0] != NULL)) {
+        cleanStr(res, i);
 		fputs(res,saida);
         fputs("\n",saida);
-		return;
 	}
 
     if (i < strlen(prefix)) {
@@ -208,6 +220,7 @@ void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i, FILE* sai
                 res[i] = buscaChar(j);
                 buscaPrefixo(arv->prox[j],prefix,res,i+1,saida);
             }
+    return;
 }
 
 //Busca o maior prefixo da string fornecida
