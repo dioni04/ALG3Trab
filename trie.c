@@ -142,17 +142,19 @@ void busca(node* arv, char *string, char *op, FILE* saida) {
 }
 
 //Funcao auxiliar para coringa *
-void buscaPadraoAux(node* arv, char* padrao, char* res, int i, int proxPos, FILE* saida){
+void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n, int proxPos, FILE* saida){
+
+    if(arv->prox[proxPos] != NULL){ //Se for nao NULL o prox volta para funcao que chamou
+        cleanStr(res, i);
+        res[i] = buscaChar(proxPos);
+        buscaPadrao(arv, padrao, res, n, saida);
+    }
+
     for(int j = 0; j < MAX; j++){ //Percorre vetor e vai em todas sub arvores
         if (arv->prox[j] != NULL) {
             res[i] = buscaChar(j);
-            buscaPadraoAux(arv->prox[j], padrao, res, i+1, proxPos, saida);
+            buscaPadraoAux(arv->prox[j], padrao, res, i+1, n,proxPos, saida);
         }
-    }
-
-    if(arv->prox[proxPos] != NULL){ //Se for nao NULL o prox volta para funcao que chamou
-        res[i] = buscaChar(proxPos);
-        buscaPadrao(arv, padrao, res, i+1, saida);
     }
     return;
 }
@@ -178,13 +180,18 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* said
     }
     else if (padrao[i] == '*'){
         int proxPos;
+        int aux = 1;
 
-        if(padrao[i+1] != '.')
+        if(padrao[i+1] != '.' && padrao[i+1] != '*')
             proxPos = buscaPos(padrao[i+1]);
-        else
-            proxPos = 0; //O . nao faz diferenca
+        else{ //Acha proximo caracter valido no padrao
+            aux = 2;
 
-        buscaPadraoAux(arv, padrao, res, i, proxPos, saida);
+            while(padrao[i + aux] == '.' || padrao[i + aux] == '*')
+                aux++;
+            proxPos = buscaPos(padrao[i+aux]); //O . nao faz diferenca
+        }
+        buscaPadraoAux(arv, padrao, res, i, i + aux, proxPos, saida);
         return;
     }
     else if ((pos != -1) && (arv->prox[pos] != NULL)) {
