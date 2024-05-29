@@ -38,6 +38,6 @@ void buscaMaisLongo(node* arv, char *titulo, char *res, maisLongo *nome, unsigne
 //Outras funcoes
 int buscaPos(char c);
 char buscaChar(int pos);
-
+char* padronizaString(char* entrada);
 
 #endif
