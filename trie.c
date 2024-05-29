@@ -12,6 +12,7 @@ node* processaArq(char *path, node* raiz) {
 
     while (fgets(linha, TAM_LINHA, arq) != NULL) {
 		linha[strcspn(linha, "\n")] = 0;
+		linha = padronizaString(linha);
         raiz = insere(raiz,linha);
 	}
 
