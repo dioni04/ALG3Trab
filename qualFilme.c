@@ -37,10 +37,10 @@ int main(int argc, char **argv) {
         fputs(linha,saida);
         buffer = linha;
         buffer[strcspn(buffer, "\n")] = 0;  //Substitui o \n por \0 no fim da linha
-        buffer = padronizaString(buffer);
         op = strsep(&buffer," ");           //Op eh a operacao a ser realizada, no caso, p, l ou c
-        padrao = strsep(&buffer, "\n");     
-        busca(arv,padrao,op);             
+        padrao = strsep(&buffer, "\n");
+        linha = padronizaString(padrao);
+        busca(arv,linha,op);             
     }
 
     fclose(consulta);
