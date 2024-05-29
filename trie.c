@@ -4,7 +4,7 @@
 node* processaArq(char *path, node* raiz) {
 
     FILE* arq;
-    char linha[TAM_LINHA];
+    char linha[TAM_LINHA], *buffer;
 
     //Se nao conseguir abrir o arquivo, retorna 0
     if ((arq = fopen(path, "r")) == NULL)
@@ -12,8 +12,8 @@ node* processaArq(char *path, node* raiz) {
 
     while (fgets(linha, TAM_LINHA, arq) != NULL) {
 		linha[strcspn(linha, "\n")] = 0;
-		linha = padronizaString(linha);
-        raiz = insere(raiz,linha);
+		buffer = padronizaString(linha);
+        raiz = insere(raiz,buffer);
 	}
 
     fclose(arq);
