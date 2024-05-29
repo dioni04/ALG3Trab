@@ -31,7 +31,7 @@ node* insere(node* raiz, char* string);
 //Funcoes principais
 void busca(node* arv, char *string, char* op, FILE* saida);
 void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, FILE* saida);
-void buscaPadraoAux(node* arv, char* padrao, char* res, int i, int proxPos, FILE* saida);
+void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n,int proxPos, FILE* saida);
 void buscaPrefixo(node* arv, char *prefix, char *res, unsigned long i, FILE* saida);
 void buscaMaisLongo(node* arv, char *titulo, char *res, maisLongo *nome, unsigned long i);
 
