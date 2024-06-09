@@ -130,7 +130,7 @@ void busca(node* arv, char *string, char *op) {
 		free(nome.word);
     }
     else if (strcmp(op,"c") == 0)
-        buscaPadrao(arv,string,res,0);
+        buscaPadrao(arv,string,res,0, 0);
 }
 
 //Funcao auxiliar para coringa *
@@ -138,56 +138,55 @@ void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n, 
 
     if(arv->prox[proxPos] != NULL){ //Se for nao NULL o prox volta para funcao que chamou
         cleanStr(res, i);
-        res[i] = buscaChar(proxPos);
-        buscaPadrao(arv, padrao, res, n);
+        buscaPadrao(arv, padrao, res, i, n);
     }
 
     for(int j = 0; j < MAX; j++){ //Percorre vetor e vai em todas sub arvores
-        if (arv->prox[j] != NULL) {
+        if (arv->prox[j] != NULL && j != proxPos) {
             res[i] = buscaChar(j);
-            buscaPadraoAux(arv->prox[j], padrao, res, i+1, n,proxPos);
+            buscaPadraoAux(arv->prox[j], padrao, res, i+1, n, proxPos);
         }
     }
     return;
 }
 
 //No momento ela so busca com o wildcard '.', mas dps eh so adpatar pra funcionar pra '*' tbm
-void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i) {
-    
+void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, unsigned long n) {
+
     if ((arv == NULL) || (i >= strlen(padrao))) {
         if (arv->prox[0] != NULL) {
             printf("%s\n", res);
+            return;
         }
-        return;
     }
 
-    int pos = buscaPos(padrao[i]);
-    if (padrao[i] == '.') {
+    int pos = buscaPos(padrao[n]);
+    if (padrao[n] == '.') {
         for (int j = 0; j < MAX; j++)
             if (arv->prox[j] != NULL) {
                 res[i] = buscaChar(j);
-                buscaPadrao(arv->prox[j],padrao,res,i+1);
+                buscaPadrao(arv->prox[j],padrao,res,i+1, n+1);
             }
     }
-    else if (padrao[i] == '*'){
+    else if (padrao[n] == '*'){
         int proxPos;
         int aux = 1;
 
-        if(padrao[i+1] != '.' && padrao[i+1] != '*')
-            proxPos = buscaPos(padrao[i+1]);
+        if(padrao[n+1] != '.' && padrao[n+1] != '*')
+            proxPos = buscaPos(padrao[n+1]);
         else{ //Acha proximo caracter valido no padrao
             aux = 2;
 
-            while(padrao[i + aux] == '.' || padrao[i + aux] == '*')
+            while(padrao[n + aux] == '.' || padrao[n + aux] == '*')
                 aux++;
             proxPos = buscaPos(padrao[i+aux]); //O . nao faz diferenca
         }
-        buscaPadraoAux(arv, padrao, res, i, i + aux, proxPos);
+        buscaPadraoAux(arv, padrao, res, i, n + aux, proxPos);
         return;
     }
     else if ((arv->prox[pos] != NULL)) {
     	res[i] = buscaChar(pos);
-        buscaPadrao(arv->prox[pos],padrao,res,i+1);
+        buscaPadrao(arv->prox[pos],padrao,res,i+1, n+1);
     }
     return;
 }
