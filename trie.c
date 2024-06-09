@@ -113,6 +113,15 @@ char buscaChar(int pos) {
         
 }
 
+int buscaPonto(char *string, int n) {
+
+	for (int i = n; i < strlen(string); i++)
+		if (string[i] == '.')
+			return 1;
+
+	return 0;
+
+}
 //Essa funcao chama as funcoes adequadas baseado no op
 void busca(node* arv, char *string, char *op) {
 
@@ -172,6 +181,11 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, unsigned l
         int proxPos;
         int aux = 1;
 
+        if ((arv->prox[0] != NULL) && (!buscaPonto(padrao,n))) {
+            cleanStr(res, i);
+            printf("%s\n", res);
+        }
+	    
         if(padrao[n+1] != '.' && padrao[n+1] != '*')
             proxPos = buscaPos(padrao[n+1]);
         else{ //Acha proximo caracter valido no padrao
