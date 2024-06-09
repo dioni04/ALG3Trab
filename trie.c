@@ -137,12 +137,11 @@ void busca(node* arv, char *string, char *op) {
 void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n, int proxPos){
 
     if(arv->prox[proxPos] != NULL){ //Se for nao NULL o prox volta para funcao que chamou
-        cleanStr(res, i);
         buscaPadrao(arv, padrao, res, i, n);
     }
 
     for(int j = 0; j < MAX; j++){ //Percorre vetor e vai em todas sub arvores
-        if (arv->prox[j] != NULL && j != proxPos) {
+        if (arv->prox[j] != NULL ) {
             res[i] = buscaChar(j);
             buscaPadraoAux(arv->prox[j], padrao, res, i+1, n, proxPos);
         }
@@ -155,6 +154,7 @@ void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, unsigned l
 
     if ((arv == NULL) || (i >= strlen(padrao))) {
         if (arv->prox[0] != NULL) {
+            cleanStr(res, i);
             printf("%s\n", res);
             return;
         }
