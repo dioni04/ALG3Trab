@@ -162,7 +162,7 @@ void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n, 
 void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, unsigned long n) {
 
     if (padrao[n] == '\0') {
-        if ((arv->prox[0] != NULL) && (!buscaPonto(padrao,i)){
+        if ((arv->prox[0] != NULL) && (!buscaPonto(padrao,i))){
             cleanStr(res, i);
             printf("%s\n", res);
             return;
