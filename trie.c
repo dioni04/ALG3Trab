@@ -161,7 +161,7 @@ void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n, 
 //No momento ela so busca com o wildcard '.', mas dps eh so adpatar pra funcionar pra '*' tbm
 void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, unsigned long n) {
 
-    if (padrao[n] == '\0) {
+    if (padrao[n] == '\0') {
         if ((arv->prox[0] != NULL) && (!buscaPonto(padrao,i)){
             cleanStr(res, i);
             printf("%s\n", res);
