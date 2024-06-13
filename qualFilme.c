@@ -20,9 +20,9 @@ int main(int argc, char **argv) {
 
     //Executa esse loop p/ todas as linhas do arquivo de consulta
     while (fgets(linha,TAM_LINHA,stdin) != NULL) {
-        printf("%s", linha);
         buffer = linha;
         buffer[strcspn(buffer, "\n")] = 0;  //Substitui o \n por \0 no fim da linha
+        printf("%s\n", buffer);
         op = strsep(&buffer," ");           //Op eh a operacao a ser realizada, no caso, p, l ou c
         padrao = strsep(&buffer, "\n");
         busca(arv,padrao,op);
