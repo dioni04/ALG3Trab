@@ -113,6 +113,7 @@ char buscaChar(int pos) {
         
 }
 
+//Confere se tem algum outro wildcard "." no resto da string
 int buscaPonto(char *string, int n) {
 
 	for (int i = n; i < strlen(string); i++)
@@ -126,7 +127,7 @@ int buscaPonto(char *string, int n) {
 void busca(node* arv, char *string, char *op) {
 
     char res[TAM_LINHA]; //String para armazenar o resultado
-    memset(res, '\0', sizeof(res)); //Preenche o vetor com \0 pra n dar merda
+    memset(res, '\0', sizeof(res)); //Preenche o vetor com \0
     
     if (strcmp(op,"p") == 0)
         buscaPrefixo(arv,string,res,0);
@@ -158,7 +159,6 @@ void buscaPadraoAux(node* arv, char* padrao, char* res, int i, unsigned long n, 
     return;
 }
 
-//No momento ela so busca com o wildcard '.', mas dps eh so adpatar pra funcionar pra '*' tbm
 void buscaPadrao(node* arv, char *padrao, char *res, unsigned long i, unsigned long n) {
 
     if (padrao[n] == '\0') {
