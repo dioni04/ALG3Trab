@@ -1,0 +1,8 @@
+ Não encontramos dificuldades consideráveis na resolução do trabalho e não estamos cientes de nenhum bug.
+
+ A estrutura de dados utilizada foi uma árvore trie, na qual cada nó possui 39 filhos (10 números, 26 letras, “ “, “?” e “\0”),
+e a inserção de um título na árvore é feita da seguinte maneira: o programa percorre o título buscando a posição correspondente de cada um dos seus caracteres no vetor, 
+e caso essa posição esteja vazia, um novo nó é criado, e para marcar que chegou no fim da palavra ele cria um nó na posição do “\0”.
+
+ Dessa maneira, se temos os títulos “Rocky” e “Rocky V” quando o programa chegar no nó da letra “y”, tanto o nó “\0” e “ “ não estarão vazios, 
+portanto sabemos que “Rocky” é prefixo de algum outro título.
